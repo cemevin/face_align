@@ -7,12 +7,14 @@ The code uses OpenCV, PIL and imageio for face detection and video generation.
 ![Example](example.gif)
 
 ## Installation
-pip install opencv-contrib-python <br/>
-pip install imageio <br/>
-pip install --upgrade Pillow <br/>
-
-Add pictures to ./images <br/>
-run face_align.py <br/>
+```
+pip install opencv-contrib-python 
+pip install imageio 
+pip install --upgrade Pillow
+```
 
 ## Usage
-Put your images in order to /images folder. Empty /cropped folder but don't remove the folder itself, as it's used as cache by the program. The output movie will be exported as output.avi/
+Put your images into `/images` folder. <br/>
+Create an empty `/croppe`d folder. <br/>
+run `python face_align.py` <br/>
+The output movie will be exported as `output.avi`.
