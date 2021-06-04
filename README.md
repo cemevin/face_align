@@ -1,5 +1,13 @@
 # Selfie Time Lapse in OpenCV
 Face align Selfies in Open CV
 
-This Python code take a series of selfies taken, aligns and centers them, and creates a time lapse video.
+This Python code take a series of selfies taken, aligns and centers them, and creates a time lapse video. <br/>
 The code uses OpenCV, PIL and imageio for face detection and video generation.
+
+## Installation
+pip install opencv-contrib-python <br/>
+pip install imageio <br/>
+pip install --upgrade Pillow <br/>
+
+Add pictures to ./images <br/>
+run face_align.py <br/>
