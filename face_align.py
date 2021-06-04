@@ -22,7 +22,7 @@ def rotatePoint(point, radians, origin=(0, 0)):
 
 	return qx, qy
 
-def rotate_image(image, angle, image_center = False):
+def rotateImage(image, angle, image_center = False):
 	if image_center == False:
 		image_center = tuple(np.array(image.shape[1::-1]) / 2)
 
@@ -30,7 +30,7 @@ def rotate_image(image, angle, image_center = False):
 	result = cv2.warpAffine(image, rot_mat, image.shape[1::-1])#, flags=cv2.INTER_LINEAR)
 	return result
 
-def euclidean_distance(a, b):
+def euclideanDistance(a, b):
 	x1 = a[0]; y1 = a[1]
 	x2 = b[0]; y2 = b[1]
 	return math.sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)))
@@ -116,9 +116,9 @@ def processImage(path):
 	   direction = 1 #rotate anti ccw
 
 	# find angle of rotation
-	a = euclidean_distance(left_eye_center, point_3rd)
-	b = euclidean_distance(right_eye_center, left_eye_center)
-	c = euclidean_distance(right_eye_center, point_3rd)
+	a = euclideanDistance(left_eye_center, point_3rd)
+	b = euclideanDistance(right_eye_center, left_eye_center)
+	c = euclideanDistance(right_eye_center, point_3rd)
 
 	cos_a = (b*b + c*c - a*a)/(2*b*c)
 	angle = np.arccos(cos_a)
@@ -135,7 +135,7 @@ def processImage(path):
 	eyesCenter = ((rightx+leftx)/2, (righty+lefty)/2)
 
 	# rotate image around the eyes
-	img_raw = rotate_image(img_raw, direction * angle, eyesCenter)
+	img_raw = rotateImage(img_raw, direction * angle, eyesCenter)
 
 	# rotate eyes
 	leftx, lefty = rotatePoint((leftx, lefty), direction * angle * math.pi / 180, eyesCenter)
@@ -184,15 +184,17 @@ def processImage(path):
 	return np.array(new_img)
 
 print('--- processing images ---')
+numImages = 0
 for path in os.listdir('./images'):
 	print('processing ' + path)
 	newImg = processImage("images/" + path)
 	cv2.imwrite("cropped/" + path, newImg)
+	numImages += 1
 
 # video
 print('--- creating video ---')
 writer = cv2.VideoWriter("output.avi", cv2.VideoWriter_fourcc(*"mp4v"), 15,(720,960))
-for i in range(1, 253):
+for i in range(1, numImages+1):
     frame = cv2.imread('./cropped/' + str(i) + '.jpg')
     writer.write(frame)
 writer.release()
